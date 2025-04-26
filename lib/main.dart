@@ -7,7 +7,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'presentation/theme.dart';
 import 'core/network/env.dart';
 
 late SharedPreferences sharedPref;
@@ -27,6 +27,7 @@ class MyApp extends HookConsumerWidget {
   MyApp({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    const theme = CustomTheme();
     useEffect(() {
       router = AppRouter();
       return null;
@@ -40,8 +41,9 @@ class MyApp extends HookConsumerWidget {
       ),
       debugShowCheckedModeBanner: false,
       // theme: EdocTheme.lightTheme,
-      darkTheme: ThemeData(brightness: Brightness.dark),
       themeMode: ThemeMode.light,
+      theme: theme.toThemeData(),
+      darkTheme: theme.toThemeDataDark(),
     );
   }
 }
