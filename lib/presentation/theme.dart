@@ -5,14 +5,21 @@ import 'package:material_color_utilities/material_color_utilities.dart';
 @immutable
 class CustomTheme extends ThemeExtension<CustomTheme> {
   const CustomTheme({
-    this.primaryColor = const Color(0xff05849A),
-    this.tertiaryColor = const Color(0xFF625B71),
-    this.neutralColor = const Color(0xFF939094),
+    // Có thể thay đổi màu sắc cho theme
+    this.primaryColor = const Color(0xff05849A), // Default color
+    this.tertiaryColor = const Color(0xFF344054), // Default color
+    this.neutralColor = const Color(0xFF667085), // Default color
+    this.dividerColor = const Color(0xffD0D5DD), // Default color
+    this.hintColor = const Color(0xFF667085), // Default color
+    this.highlightColor = const Color(0xFFFFFFFF), // Default color
   });
 
   final Color primaryColor;
   final Color tertiaryColor;
   final Color neutralColor;
+  final Color dividerColor;
+  final Color hintColor;
+  final Color highlightColor;
 
   Scheme _schemeLight() {
     final base = CorePalette.of(primaryColor.value);
@@ -91,46 +98,86 @@ class CustomTheme extends ThemeExtension<CustomTheme> {
   }
 
   ThemeData _base(final ColorScheme colorScheme) {
-    final primaryTextTheme = GoogleFonts.exoTextTheme();
-    final secondaryTextTheme = GoogleFonts.neuchaTextTheme();
+    final primaryTextTheme = GoogleFonts.ralewayTextTheme();
+    // final secondaryTextTheme = GoogleFonts.neuchaTextTheme();
+    // final textTheme = primaryTextTheme.copyWith(
+    //   displaySmall: secondaryTextTheme.displaySmall,
+    //   displayMedium: secondaryTextTheme.displayMedium,
+    //   displayLarge: secondaryTextTheme.displayLarge,
+    //   headlineSmall: secondaryTextTheme.headlineSmall,
+    //   headlineMedium: secondaryTextTheme.headlineMedium,
+    //   headlineLarge: secondaryTextTheme.headlineLarge,
+    // );
     final textTheme = primaryTextTheme.copyWith(
-      displaySmall: secondaryTextTheme.displaySmall,
-      displayMedium: secondaryTextTheme.displayMedium,
-      displayLarge: secondaryTextTheme.displayLarge,
-      headlineSmall: secondaryTextTheme.headlineSmall,
-      headlineMedium: secondaryTextTheme.headlineMedium,
-      headlineLarge: secondaryTextTheme.headlineLarge,
-    );
-
-    return ThemeData(
-      useMaterial3: true,
-      extensions: [this],
-      colorScheme: colorScheme,
-      visualDensity: VisualDensity.adaptivePlatformDensity,
-      textTheme: textTheme,
-      appBarTheme: AppBarTheme(
-        toolbarHeight: 152,
-        color: colorScheme.surface.withOpacity(0.95),
+      headlineLarge: const TextStyle(
+        fontSize: 24.0,
+        fontWeight: FontWeight.w600,
       ),
-      cardTheme: CardTheme(color: colorScheme.surfaceVariant),
-      // scaffoldBackgroundColor: isLight ? neutralColor : colorScheme.background,
-      // tabBarTheme: TabBarTheme(
-      //     labelColor: colorScheme.onSurface,
-      //     unselectedLabelColor: colorScheme.onSurface,
-      //     indicator: BoxDecoration(
-      //         border: Border(
-      //             bottom: BorderSide(color: colorScheme.primary, width: 2)))),
-      // floatingActionButtonTheme: FloatingActionButtonThemeData(
-      //     backgroundColor: colorScheme.secondaryContainer,
-      //     foregroundColor: colorScheme.onSecondaryContainer),
-      // navigationRailTheme: NavigationRailThemeData(
-      //     backgroundColor: isLight ? neutralColor : colorScheme.surface,
-      //     selectedIconTheme:
-      //         IconThemeData(color: colorScheme.onSecondaryContainer),
-      //     indicatorColor: colorScheme.secondaryContainer),
-      // chipTheme: ChipThemeData(
-      //     backgroundColor: isLight ? neutralColor : colorScheme.surface),
+      headlineMedium: const TextStyle(
+        fontSize: 18.0,
+        fontWeight: FontWeight.w600,
+      ),
+      headlineSmall: const TextStyle(
+        fontSize: 16.0,
+        fontWeight: FontWeight.w600,
+      ),
+      bodyLarge: const TextStyle(
+        fontSize: 16.0,
+        fontWeight: FontWeight.w400,
+      ),
+      bodyMedium: const TextStyle(
+        fontSize: 14.0,
+        fontWeight: FontWeight.w400,
+      ),
+      bodySmall: const TextStyle(
+        fontSize: 12.0,
+        fontWeight: FontWeight.w400,
+      ),
+      titleLarge: const TextStyle(
+        fontSize: 16.0,
+        fontWeight: FontWeight.w500,
+      ),
+      titleMedium: const TextStyle(
+        // text input placeholder
+        fontSize: 14.0,
+        fontWeight: FontWeight.w500,
+        height: 1.4,
+      ),
     );
+    return ThemeData(
+        fontFamily: 'SfProDisplay',
+        useMaterial3: true,
+        extensions: [this],
+        colorScheme: colorScheme,
+        hintColor: hintColor, // Màu sắc hintText
+        dividerColor: dividerColor, // Màu underline, under border
+        highlightColor: highlightColor, // Màu sắc icon, text trong button
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        textTheme: textTheme,
+        appBarTheme: AppBarTheme(
+          toolbarHeight: 152,
+          color: colorScheme.surface.withOpacity(0.95),
+        ),
+        cardTheme: CardTheme(color: colorScheme.surfaceContainerHighest),
+        scaffoldBackgroundColor: Colors.white
+        // scaffoldBackgroundColor: isLight ? neutralColor : colorScheme.background,
+        // tabBarTheme: TabBarTheme(
+        //     labelColor: colorScheme.onSurface,
+        //     unselectedLabelColor: colorScheme.onSurface,
+        //     indicator: BoxDecoration(
+        //         border: Border(
+        //             bottom: BorderSide(color: colorScheme.primary, width: 2)))),
+        // floatingActionButtonTheme: FloatingActionButtonThemeData(
+        //     backgroundColor: colorScheme.secondaryContainer,
+        //     foregroundColor: colorScheme.onSecondaryContainer),
+        // navigationRailTheme: NavigationRailThemeData(
+        //     backgroundColor: isLight ? neutralColor : colorScheme.surface,
+        //     selectedIconTheme:
+        //         IconThemeData(color: colorScheme.onSecondaryContainer),
+        //     indicatorColor: colorScheme.secondaryContainer),
+        // chipTheme: ChipThemeData(
+        //     backgroundColor: isLight ? neutralColor : colorScheme.surface),
+        );
   }
 
   ThemeData toThemeData() {
